@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">lunchFinderAndroid</string>
+    <string name="title_activity_restaurant_detail">Map</string>
+</resources>
