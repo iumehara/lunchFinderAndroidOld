@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 public class RestaurantListActivity extends AppCompatActivity {
     private Context applicationContext;
     private ArrayAdapter<Restaurant> adapterRestaurants;
@@ -21,18 +23,20 @@ public class RestaurantListActivity extends AppCompatActivity {
 
         applicationContext = getApplicationContext();
 
-        RestaurantRepo restaurantRepo = new RestaurantRepo(applicationContext);
+        RetrofitRestaurantRepo restaurantRepo = new RetrofitRestaurantRepo();
 
         displayRestaurants(restaurantRepo);
     }
 
     private void displayRestaurants(RestaurantRepo restaurantRepo) {
-        int layoutResource = android.R.layout.simple_list_item_1;
+        int listItemLayout = android.R.layout.simple_list_item_1;
 
-        adapterRestaurants = restaurantRepo.getAll(layoutResource);
+        this.adapterRestaurants = restaurantRepo.getAll(
+                new ArrayAdapter<>(applicationContext, listItemLayout, new ArrayList<Restaurant>())
+        );
 
         ListView restaurantList = findViewById(R.id.restaurant_list);
-        restaurantList.setAdapter(adapterRestaurants);
+        restaurantList.setAdapter(this.adapterRestaurants);
 
         restaurantList.setOnItemClickListener(clickListener());
     }
