@@ -10,9 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
-public class RestaurantListActivity extends AppCompatActivity {
+public class RestaurantListActivity extends AppCompatActivity implements RestaurantListView {
     private Context applicationContext;
     private ArrayAdapter<Restaurant> adapterRestaurants;
 
@@ -23,19 +22,12 @@ public class RestaurantListActivity extends AppCompatActivity {
 
         applicationContext = getApplicationContext();
 
-        RetrofitRestaurantRepo restaurantRepo = new RetrofitRestaurantRepo();
+        RestaurantListPresenter presenter = new RestaurantListPresenter(this);
 
-        displayRestaurants(restaurantRepo);
+        presenter.onCreate();
     }
 
-    private void displayRestaurants(RestaurantRepo restaurantRepo) {
-        CompletableFuture<List<Restaurant>> futureRestaurants = restaurantRepo.getAll();
-
-        futureRestaurants
-                .thenAccept(this::setRow);
-    }
-
-    private void setRow(List<Restaurant> restaurants) {
+    public void setRow(List<Restaurant> restaurants) {
         int listItemLayout = android.R.layout.simple_list_item_1;
 
         adapterRestaurants = new ArrayAdapter<>(

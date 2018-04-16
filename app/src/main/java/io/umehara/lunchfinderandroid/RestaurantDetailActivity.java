@@ -9,12 +9,9 @@ import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.concurrent.CompletableFuture;
-
-public class RestaurantDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class RestaurantDetailActivity extends AppCompatActivity implements RestaurantDetailView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,25 +19,21 @@ public class RestaurantDetailActivity extends AppCompatActivity implements OnMap
 
         setContentView(R.layout.activity_restaurant_detail);
 
-        RetrofitRestaurantRepo restaurantRepo = new RetrofitRestaurantRepo();
+        RestaurantDetailPresenter presenter = new RestaurantDetailPresenter(this);
 
         Intent intent = getIntent();
         long restaurantId = intent.getIntExtra("restaurantId", -1);
-        CompletableFuture<Restaurant> futureRestaurant = restaurantRepo.get(restaurantId);
 
-        futureRestaurant
-                .thenAccept(this::setLabel);
-
-        displayMap();
+        presenter.onCreate(restaurantId);
     }
 
-    private void setLabel(Restaurant restaurant) {
+    public void setLabel(Restaurant restaurant) {
         View restaurantDetailView = findViewById(R.id.restaurant_detail);
         final TextView nameLabel = restaurantDetailView.findViewById(R.id.restaurant_detail_name);
         nameLabel.setText(restaurant.getName());
     }
 
-    private void displayMap() {
+    public void displayMap() {
         MapView mapView = findViewById(R.id.mapView);
         mapView.onCreate(null);
         mapView.getMapAsync(this);
