@@ -29,8 +29,11 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
 
     public void setLabel(Restaurant restaurant) {
         View restaurantDetailView = findViewById(R.id.restaurant_detail);
-        final TextView nameLabel = restaurantDetailView.findViewById(R.id.restaurant_detail_name);
+        TextView nameLabel = restaurantDetailView.findViewById(R.id.restaurant_detail_name);
         nameLabel.setText(restaurant.getName());
+
+        TextView nameJpLabel = restaurantDetailView.findViewById(R.id.restaurant_detail_name_jp);
+        nameJpLabel.setText(restaurant.getNameJp());
     }
 
     public void displayMap() {

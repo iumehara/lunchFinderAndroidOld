@@ -11,9 +11,11 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 public class RestaurantListActivity extends AppCompatActivity implements RestaurantListView {
     private Context applicationContext;
-    private ArrayAdapter<Restaurant> adapterRestaurants;
+    private List<Restaurant> restaurants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +30,13 @@ public class RestaurantListActivity extends AppCompatActivity implements Restaur
     }
 
     public void setRow(List<Restaurant> restaurants) {
-        int listItemLayout = android.R.layout.simple_list_item_1;
+        this.restaurants = restaurants;
 
-        adapterRestaurants = new ArrayAdapter<>(
+        ArrayAdapter<String> adapterRestaurants = new ArrayAdapter<>(
                 applicationContext,
-                listItemLayout,
-                restaurants);
+                android.R.layout.simple_list_item_1,
+                restaurants.stream().map(Restaurant::getName).collect(toList())
+        );
 
         ListView restaurantList = findViewById(R.id.restaurant_list);
         restaurantList.setAdapter(adapterRestaurants);
@@ -43,7 +46,7 @@ public class RestaurantListActivity extends AppCompatActivity implements Restaur
     @NonNull
     private AdapterView.OnItemClickListener clickListener() {
         return (parent, view, position, id) -> {
-            Restaurant restaurant = adapterRestaurants.getItem(position);
+            Restaurant restaurant = restaurants.get(position);
             if (restaurant == null) return;
 
             Intent restaurantDetailIntent = new Intent(applicationContext, RestaurantDetailActivity.class);
