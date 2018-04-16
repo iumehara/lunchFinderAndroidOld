@@ -1,7 +1,6 @@
 package io.umehara.lunchfinderandroid;
 
-import android.util.Log;
-import android.widget.ArrayAdapter;
+import android.support.annotation.NonNull;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -13,47 +12,59 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitRestaurantRepo implements RestaurantRepo {
-    private String baseURL = "http://lunch-finder-api.cfapps.io/";
+    private RetrofitRestaurantCaller restaurantCaller;
 
-    public ArrayAdapter<Restaurant> getAll(final ArrayAdapter<Restaurant> adapterRestaurants) {
+    RetrofitRestaurantRepo() {
+        String baseURL = "http://lunch-finder-api.cfapps.io/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        RetrofitRestaurantCaller service = retrofit.create(RetrofitRestaurantCaller.class);
-        Call<List<Restaurant>> call = service.getAll();
+        restaurantCaller = retrofit.create(RetrofitRestaurantCaller.class);
+    }
+
+    public CompletableFuture<List<Restaurant>> getAll() {
+        final CompletableFuture<List<Restaurant>> futureRestaurants = new CompletableFuture<>();
+
+        Call<List<Restaurant>> call = restaurantCaller.getAll();
 
         call.enqueue(new Callback<List<Restaurant>>() {
             @Override
-            public void onResponse(Call<List<Restaurant>> call, retrofit2.Response<List<Restaurant>> response) {
+            public void onResponse(
+                    @NonNull Call<List<Restaurant>> call,
+                    @NonNull retrofit2.Response<List<Restaurant>> response
+            ) {
                 if (!response.isSuccessful()) {
-                    Log.d("Unsuccessful response: ", response.message());
+                    System.out.println("Unsuccessful response: " + response.message());
+                    return;
                 }
 
-                adapterRestaurants.addAll(response.body());
+                futureRestaurants.complete(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Restaurant>> call, Throwable t) {
-                Log.d("Error", t.getMessage());
+            public void onFailure(
+                    @NonNull Call<List<Restaurant>> call,
+                    @NonNull Throwable t
+            ) {
+                System.out.println("Error" + t.getMessage());
             }
         });
 
-        return adapterRestaurants;
+        return futureRestaurants;
     }
 
     public CompletableFuture<Restaurant> get(long id) {
         final CompletableFuture<Restaurant> futureRestaurant = new CompletableFuture<>();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseURL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        RetrofitRestaurantCaller service = retrofit.create(RetrofitRestaurantCaller.class);
-        Call<Restaurant> call = service.get(id);
+
+        Call<Restaurant> call = restaurantCaller.get(id);
 
         call.enqueue(new Callback<Restaurant>() {
             @Override
-            public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+            public void onResponse(
+                    @NonNull Call<Restaurant> call,
+                    @NonNull Response<Restaurant> response
+            ) {
                 if (!response.isSuccessful()) {
                     System.out.println("Unsuccessful response: " + response.message());
                     return;
@@ -63,7 +74,10 @@ public class RetrofitRestaurantRepo implements RestaurantRepo {
             }
 
             @Override
-            public void onFailure(Call<Restaurant> call, Throwable t) {
+            public void onFailure(
+                    @NonNull Call<Restaurant> call,
+                    @NonNull Throwable t
+            ) {
                 System.out.println("Error" + t.getMessage());
             }
         });

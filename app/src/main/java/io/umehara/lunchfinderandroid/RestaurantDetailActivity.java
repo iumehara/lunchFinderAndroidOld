@@ -15,7 +15,6 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.concurrent.CompletableFuture;
 
 public class RestaurantDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
-    private MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +26,10 @@ public class RestaurantDetailActivity extends AppCompatActivity implements OnMap
 
         Intent intent = getIntent();
         long restaurantId = intent.getIntExtra("restaurantId", -1);
-        CompletableFuture<Restaurant> restaurantCompletableFuture = restaurantRepo.get(restaurantId);
+        CompletableFuture<Restaurant> futureRestaurant = restaurantRepo.get(restaurantId);
 
-        restaurantCompletableFuture
-                .thenAccept(restaurant -> setLabel(restaurant));
+        futureRestaurant
+                .thenAccept(this::setLabel);
 
         displayMap();
     }
@@ -42,7 +41,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements OnMap
     }
 
     private void displayMap() {
-        mapView = findViewById(R.id.mapView);
+        MapView mapView = findViewById(R.id.mapView);
         mapView.onCreate(null);
         mapView.getMapAsync(this);
     }
