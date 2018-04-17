@@ -11,9 +11,16 @@ public class RestaurantListPresenter {
     private RetrofitRestaurantCaller restaurantCaller;
     private RestaurantListView restaurantListView;
 
-    RestaurantListPresenter(RestaurantListView restaurantListView) {
-        this.restaurantListView = restaurantListView;
+    public RestaurantListPresenter() {
         this.restaurantCaller = RetrofitRestaurantCallerFactory.getClient();
+    }
+
+    RestaurantListPresenter(RetrofitRestaurantCaller restaurantCaller) {
+        this.restaurantCaller = restaurantCaller;
+    }
+
+    public void setView(RestaurantListView restaurantListView) {
+        this.restaurantListView = restaurantListView;
     }
 
     public void onCreate() {

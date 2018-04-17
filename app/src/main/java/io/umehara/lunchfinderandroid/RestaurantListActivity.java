@@ -24,7 +24,8 @@ public class RestaurantListActivity extends AppCompatActivity implements Restaur
 
         applicationContext = getApplicationContext();
 
-        RestaurantListPresenter presenter = new RestaurantListPresenter(this);
+        RestaurantListPresenter presenter = new RestaurantListPresenter();
+        presenter.setView(this);
 
         presenter.onCreate();
     }

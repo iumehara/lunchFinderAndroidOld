@@ -32,8 +32,8 @@ public class RestaurantDetailPresenterTest {
 
     @Test
     public void displaysSuccessfulResponse() throws InterruptedException {
-        SuccessfulInterceptorStub SuccessfulInterceptorStub = new SuccessfulInterceptorStub();
-        RestaurantDetailPresenter presenter = new RestaurantDetailPresenter(getClient(SuccessfulInterceptorStub));
+        SuccessfulRestaurantDetailInterceptorStub SuccessfulRestaurantDetailInterceptorStub = new SuccessfulRestaurantDetailInterceptorStub();
+        RestaurantDetailPresenter presenter = new RestaurantDetailPresenter(getClient(SuccessfulRestaurantDetailInterceptorStub));
         FakeRestaurantDetailView fakeView = new FakeRestaurantDetailView();
         presenter.setView(fakeView);
 

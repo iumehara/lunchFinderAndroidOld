@@ -39,7 +39,7 @@ class InterceptorSpy implements okhttp3.Interceptor {
     }
 }
 
-class SuccessfulInterceptorStub implements okhttp3.Interceptor {
+class SuccessfulRestaurantDetailInterceptorStub implements okhttp3.Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         //language=json
@@ -47,6 +47,32 @@ class SuccessfulInterceptorStub implements okhttp3.Interceptor {
                 "  \"id\": 1,\n" +
                 "  \"name\": \"Pintokona\"\n" +
                 "}";
+
+        return chain.proceed(chain.request()).newBuilder()
+                .code(200)
+                .message(responseString)
+                .request(chain.request())
+                .protocol(Protocol.HTTP_1_0)
+                .body(ResponseBody.create(MediaType.parse("application/json"), responseString.getBytes()))
+                .addHeader("content-type", "application/json")
+                .build();
+    }
+}
+
+class SuccessfulRestaurantListInterceptorStub implements okhttp3.Interceptor {
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        //language=json
+        String responseString = "[\n" +
+                "  {\n" +
+                "    \"id\": 1,\n" +
+                "    \"name\": \"Pintokona\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": 2,\n" +
+                "    \"name\": \"Momodori\"\n" +
+                "  }\n" +
+                "]";
 
         return chain.proceed(chain.request()).newBuilder()
                 .code(200)
