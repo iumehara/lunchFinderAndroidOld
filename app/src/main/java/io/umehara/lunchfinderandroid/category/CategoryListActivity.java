@@ -15,7 +15,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_list);
+        setContentView(R.layout.category_list_activity);
 
         CategoryListPresenter presenter = new CategoryListPresenter();
 

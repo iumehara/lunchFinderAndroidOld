@@ -22,7 +22,7 @@ public class RestaurantListActivity extends AppCompatActivity implements Restaur
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_list);
+        setContentView(R.layout.restaurant_list_activity);
 
         applicationContext = getApplicationContext();
 
