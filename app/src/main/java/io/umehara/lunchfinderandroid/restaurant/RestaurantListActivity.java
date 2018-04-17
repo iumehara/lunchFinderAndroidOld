@@ -1,4 +1,4 @@
-package io.umehara.lunchfinderandroid;
+package io.umehara.lunchfinderandroid.restaurant;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.List;
+
+import io.umehara.lunchfinderandroid.R;
 
 import static java.util.stream.Collectors.toList;
 

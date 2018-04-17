@@ -1,4 +1,4 @@
-package io.umehara.lunchfinderandroid;
+package io.umehara.lunchfinderandroid.restaurant;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

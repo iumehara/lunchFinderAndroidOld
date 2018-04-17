@@ -1,4 +1,4 @@
-package io.umehara.lunchfinderandroid;
+package io.umehara.lunchfinderandroid.restaurant;
 
 import android.support.annotation.NonNull;
 

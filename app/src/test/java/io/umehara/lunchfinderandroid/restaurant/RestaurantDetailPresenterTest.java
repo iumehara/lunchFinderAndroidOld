@@ -1,11 +1,13 @@
-package io.umehara.lunchfinderandroid;
+package io.umehara.lunchfinderandroid.restaurant;
 
 import org.junit.Test;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static io.umehara.lunchfinderandroid.RetrofitRestaurantCallerStubFactory.getClient;
+import io.umehara.lunchfinderandroid.InterceptorSpy;
+
+import static io.umehara.lunchfinderandroid.restaurant.RetrofitRestaurantCallerStubFactory.getClient;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;

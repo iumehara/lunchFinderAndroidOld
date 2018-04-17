@@ -1,6 +1,9 @@
-package io.umehara.lunchfinderandroid;
+package io.umehara.lunchfinderandroid.restaurant;
 
 import com.google.android.gms.maps.GoogleMap;
+
+import io.umehara.lunchfinderandroid.restaurant.Restaurant;
+import io.umehara.lunchfinderandroid.restaurant.RestaurantDetailView;
 
 public class FakeRestaurantDetailView implements RestaurantDetailView {
 

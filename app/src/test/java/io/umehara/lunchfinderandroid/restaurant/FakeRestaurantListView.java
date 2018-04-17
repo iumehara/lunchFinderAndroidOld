@@ -1,6 +1,9 @@
-package io.umehara.lunchfinderandroid;
+package io.umehara.lunchfinderandroid.restaurant;
 
 import java.util.List;
+
+import io.umehara.lunchfinderandroid.restaurant.Restaurant;
+import io.umehara.lunchfinderandroid.restaurant.RestaurantListView;
 
 public class FakeRestaurantListView implements RestaurantListView {
     public List<Restaurant> setRowWasCalledWith;

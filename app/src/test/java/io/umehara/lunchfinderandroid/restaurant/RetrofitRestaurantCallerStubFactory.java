@@ -1,4 +1,4 @@
-package io.umehara.lunchfinderandroid;
+package io.umehara.lunchfinderandroid.restaurant;
 
 import java.io.IOException;
 
@@ -6,7 +6,6 @@ import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
-import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
@@ -26,16 +25,6 @@ public class RetrofitRestaurantCallerStubFactory {
                 .build();
 
         return retrofit.create(RetrofitRestaurantCaller.class);
-    }
-}
-
-class InterceptorSpy implements okhttp3.Interceptor {
-    public Request request;
-
-    @Override
-    public Response intercept(Chain chain) throws IOException {
-        request = chain.request();
-        return chain.proceed(chain.request()).newBuilder().build();
     }
 }
 
