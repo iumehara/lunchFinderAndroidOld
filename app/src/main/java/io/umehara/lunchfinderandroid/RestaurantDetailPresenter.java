@@ -5,21 +5,21 @@ import android.support.annotation.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestaurantDetailPresenter {
     private RetrofitRestaurantCaller restaurantCaller;
     private RestaurantDetailView restaurantDetailView;
 
-    RestaurantDetailPresenter(RestaurantDetailView restaurantDetailView) {
+    RestaurantDetailPresenter() {
+        this.restaurantCaller = RetrofitRestaurantCallerFactory.getClient();
+    }
+
+    RestaurantDetailPresenter(RetrofitRestaurantCaller restaurantCaller) {
+        this.restaurantCaller = restaurantCaller;
+    }
+
+    public void setView(RestaurantDetailView restaurantDetailView) {
         this.restaurantDetailView = restaurantDetailView;
-        String baseURL = "http://lunch-finder-api.cfapps.io/";
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseURL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        restaurantCaller = retrofit.create(RetrofitRestaurantCaller.class);
     }
 
     public void onCreate(long id) {

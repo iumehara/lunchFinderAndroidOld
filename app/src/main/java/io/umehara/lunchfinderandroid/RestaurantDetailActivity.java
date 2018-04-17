@@ -19,7 +19,9 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
 
         setContentView(R.layout.activity_restaurant_detail);
 
-        RestaurantDetailPresenter presenter = new RestaurantDetailPresenter(this);
+        RestaurantDetailPresenter presenter = new RestaurantDetailPresenter();
+
+        presenter.setView(this);
 
         Intent intent = getIntent();
         long restaurantId = intent.getIntExtra("restaurantId", -1);

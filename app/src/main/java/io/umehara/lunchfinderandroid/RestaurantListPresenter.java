@@ -6,8 +6,6 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestaurantListPresenter {
     private RetrofitRestaurantCaller restaurantCaller;
@@ -15,12 +13,7 @@ public class RestaurantListPresenter {
 
     RestaurantListPresenter(RestaurantListView restaurantListView) {
         this.restaurantListView = restaurantListView;
-        String baseURL = "http://lunch-finder-api.cfapps.io/";
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseURL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        restaurantCaller = retrofit.create(RetrofitRestaurantCaller.class);
+        this.restaurantCaller = RetrofitRestaurantCallerFactory.getClient();
     }
 
     public void onCreate() {
