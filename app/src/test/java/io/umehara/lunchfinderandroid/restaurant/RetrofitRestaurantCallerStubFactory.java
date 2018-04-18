@@ -28,7 +28,7 @@ public class RetrofitRestaurantCallerStubFactory {
     }
 }
 
-class SuccessfulRestaurantDetailInterceptorStub implements okhttp3.Interceptor {
+class SuccessfulCategoryDetailInterceptorStub implements okhttp3.Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         //language=json

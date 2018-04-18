@@ -12,18 +12,21 @@ import io.umehara.lunchfinderandroid.R;
 
 public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewHolder> {
     private List<Category> categories;
+    private CategoryListActivity activity;
 
-    public CategoryRecyclerViewAdapter(List<Category> categories) {
+    CategoryRecyclerViewAdapter(List<Category> categories, CategoryListActivity activity) {
         this.categories = categories;
+        this.activity = activity;
     }
 
     @NonNull
     @Override
     public CategoryRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View categoryListRowLayout = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.category_list_row, parent, false);
+
+        categoryListRowLayout.setOnClickListener(onClickListener(parent));
 
         return new CategoryRecyclerViewHolder(categoryListRowLayout);
     }
@@ -36,5 +39,14 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     @Override
     public int getItemCount() {
         return categories.size();
+    }
+
+    private View.OnClickListener onClickListener(ViewGroup viewGroup) {
+        return view -> {
+            RecyclerView recyclerView = (RecyclerView) viewGroup;
+            int viewPosition = recyclerView.getChildLayoutPosition(view);
+            Category category = categories.get(viewPosition);
+            activity.startCategoryDetailActivity(category.getId());
+        };
     }
 }
