@@ -4,4 +4,6 @@ import java.util.List;
 
 public interface RestaurantListView {
     void setRow(List<Restaurant> restaurants);
+
+    void startRestaurantDetailActivity(Integer restaurantId);
 }

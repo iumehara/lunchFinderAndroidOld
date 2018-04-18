@@ -1,61 +1,47 @@
 package io.umehara.lunchfinderandroid.restaurant;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.List;
 
 import io.umehara.lunchfinderandroid.R;
 
-import static java.util.stream.Collectors.toList;
-
 public class RestaurantListActivity extends AppCompatActivity implements RestaurantListView {
-    private Context applicationContext;
-    private List<Restaurant> restaurants;
+    private RestaurantListFragment listFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.restaurant_list_activity);
 
-        applicationContext = getApplicationContext();
+        setListFragment();
 
         RestaurantListPresenter presenter = new RestaurantListPresenter();
         presenter.setView(this);
-
         presenter.onCreate();
     }
 
     public void setRow(List<Restaurant> restaurants) {
-        this.restaurants = restaurants;
-
-        ArrayAdapter<String> adapterRestaurants = new ArrayAdapter<>(
-                applicationContext,
-                android.R.layout.simple_list_item_1,
-                restaurants.stream().map(Restaurant::getName).collect(toList())
-        );
-
-        ListView restaurantList = findViewById(R.id.restaurant_list);
-        restaurantList.setAdapter(adapterRestaurants);
-        restaurantList.setOnItemClickListener(clickListener());
+        listFragment.setRestaurants(restaurants, this);
     }
 
-    @NonNull
-    private AdapterView.OnItemClickListener clickListener() {
-        return (parent, view, position, id) -> {
-            Restaurant restaurant = restaurants.get(position);
-            if (restaurant == null) return;
+    public void startRestaurantDetailActivity(Integer restaurantId) {
+        Intent intent = new Intent(getApplicationContext(), RestaurantDetailActivity.class);
+        intent.putExtra("restaurantId", restaurantId);
 
-            Intent restaurantDetailIntent = new Intent(applicationContext, RestaurantDetailActivity.class);
-            restaurantDetailIntent.putExtra("restaurantId", restaurant.getId());
+        startActivity(intent);
+    }
 
-            startActivity(restaurantDetailIntent);
-        };
+    private void setListFragment() {
+        listFragment = new RestaurantListFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.restaurant_list_fragment, listFragment);
+        fragmentTransaction.commit();
     }
 }

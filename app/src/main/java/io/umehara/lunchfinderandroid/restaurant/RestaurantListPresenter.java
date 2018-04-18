@@ -11,7 +11,7 @@ public class RestaurantListPresenter {
     private RetrofitRestaurantCaller restaurantCaller;
     private RestaurantListView restaurantListView;
 
-    public RestaurantListPresenter() {
+    RestaurantListPresenter() {
         this.restaurantCaller = RetrofitRestaurantCallerFactory.getClient();
     }
 
