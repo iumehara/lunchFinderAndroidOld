@@ -2,7 +2,7 @@ package io.umehara.lunchfinderandroid.restaurant;
 
 import java.util.Objects;
 
-class Restaurant {
+public class Restaurant {
     private Integer id;
     private String name;
     private String nameJp;

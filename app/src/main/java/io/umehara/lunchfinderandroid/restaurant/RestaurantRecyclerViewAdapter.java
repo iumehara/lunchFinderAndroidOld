@@ -8,15 +8,16 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import io.umehara.lunchfinderandroid.FragmentListView;
 import io.umehara.lunchfinderandroid.R;
 
 public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<RestaurantRecyclerViewHolder> {
     private List<Restaurant> restaurants;
     private RestaurantListView activity;
 
-    RestaurantRecyclerViewAdapter(List<Restaurant> restaurants, RestaurantListView activity) {
+    RestaurantRecyclerViewAdapter(List<Restaurant> restaurants, FragmentListView activity) {
         this.restaurants = restaurants;
-        this.activity = activity;
+        this.activity = (RestaurantListView) activity;
     }
 
     @NonNull

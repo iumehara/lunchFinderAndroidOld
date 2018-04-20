@@ -1,9 +1,7 @@
 package io.umehara.lunchfinderandroid.restaurant;
 
-import java.util.List;
+import io.umehara.lunchfinderandroid.FragmentListView;
 
-public interface RestaurantListView {
-    void setRow(List<Restaurant> restaurants);
-
+public interface RestaurantListView extends FragmentListView {
     void startRestaurantDetailActivity(Integer restaurantId);
 }

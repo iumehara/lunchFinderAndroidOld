@@ -11,4 +11,9 @@ public class FakeRestaurantListView implements RestaurantListView {
     public void setRow(List<Restaurant> restaurants) {
         setRowWasCalledWith = restaurants;
     }
+
+    @Override
+    public void startRestaurantDetailActivity(Integer restaurantId) {
+
+    }
 }

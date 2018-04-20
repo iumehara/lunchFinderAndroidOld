@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import io.umehara.lunchfinderandroid.FragmentListView;
 import io.umehara.lunchfinderandroid.R;
 
 public class RestaurantListFragment extends Fragment {
@@ -43,7 +44,7 @@ public class RestaurantListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    public void setRestaurants(List<Restaurant> restaurants, RestaurantListView view) {
+    public void setRestaurants(List<Restaurant> restaurants, FragmentListView view) {
         RestaurantRecyclerViewAdapter adapter = new RestaurantRecyclerViewAdapter(restaurants, view);
         recyclerView.setAdapter(adapter);
     }

@@ -1,6 +1,8 @@
 package io.umehara.lunchfinderandroid.category;
 
-interface CategoryDetailView {
+import io.umehara.lunchfinderandroid.restaurant.RestaurantListView;
+
+interface CategoryDetailView extends RestaurantListView {
     void setLabels(Category category);
     void displayMap(Category category);
 }
